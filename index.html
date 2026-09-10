@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Maranhão: Clima, Grãos, Povos, Biodiversidade e História</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1b5e20;
+            --secondary: #2e7d32;
+            --accent: #f57f17;
+            --bg: #f4f6f8;
+            --card-bg: #ffffff;
+            --text: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* HEADER & MENU */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        nav {
+            background-color: #113814;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 0.8rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        nav a:hover {
+            background-color: var(--accent);
+            color: #000;
+        }
+
+        /* CONTAINER PRINCIPAL */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            flex: 1;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--bg);
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* 1. CLIMA & MAPA */
+        .weather-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .weather-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .map-box {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #cfd8dc, #b0bec5);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-weight: bold;
+            color: #37474f;
+            border: 2px dashed #78909c;
+            padding: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.3rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        select {
+            width: 100%;
+            padding: 0.6rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .weather-details p {
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        /* 2. GRIOS & AGRICULTURA */
+        .grain-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .info-box {
+            background: #f1f8e9;
+            padding: 1rem;
+            border-left: 4px solid var(--secondary);
+            border-radius: 4px;
+        }
+
+        .info-box h3 {
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        /* 3. POVOS INDÍGENAS */
+        .indigenous-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+
+        .tribe-card {
+            background: #fff8e1;
+            border: 1px solid #ffe082;
+            padding: 1rem;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .tribe-card h3 {
+            color: #f57f17;
+            margin-bottom: 0.3rem;
+        }
+
+        /* 4. BIODIVERSIDADE & HISTÓRIA & CURIOSIDADES */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        p {
+            line-height: 1.6;
+            color: #555;
+            font-size: 0.95rem;
+        }
+
+        footer {
+            background-color: #113814;
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.85rem;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Maranhão em Foco</h1>
+        <p>Clima, Produção de Grãos, Povos Indígenas, Biodiversidade, História e Curiosidades</p>
+    </header>
+
+    <nav>
+        <a href="#clima">Clima & Mapa</a>
+        <a href="#graos">Grãos</a>
+        <a href="#indigenas">Povos Indígenas</a>
+        <a href="#biodiversidade">Biodiversidade</a>
+        <a href="#historia">História</a>
+        <a href="#curiosidades">Curiosidades</a>
+    </nav>
+
+    <div class="container">
+
+        <!-- CLIMA E MAPA -->
+        <section id="clima" class="card">
+            <h2>🌦️ Clima no Mapa - Maranhão</h2>
+            <div class="weather-grid">
+                <div>
+                    <div class="form-group">
+                        <label for="regiaoSelect">Selecione a Região do Estado:</label>
+                        <select id="regiaoSelect" onchange="mudarClima()">
+                            <option value="sul">Sul do Maranhão (Balsas / Cerrado)</option>
+                            <option value="norte">Norte / Metropolitana (São Luís)</option>
+                            <option value="central">Centro Maranhense (Grajaú / Barra do Corda)</option>
+                            <option value="leste">Leste Maranhense (Cocais / Caxias)</option>
+                        </select>
+                    </div>
+                    <div class="weather-details" id="dadosClimaBox">
+                        <p><strong>Região:</strong> <span id="cRegiao">Sul (Balsas)</span></p>
+                        <p><strong>Clima Atual:</strong> <span id="cClima">Sol com nuvens e calor</span></p>
+                        <p><strong>Temperatura:</strong> <span id="cTemp">31°C</span></p>
+                        <p><strong>Umidade:</strong> <span id="cUmid">62%</span></p>
+                    </div>
+                </div>
+                <div>
+                    <div class="map-box" id="mapaVisual">
+                        📍 [Simulação de Mapa Interativo]<br>Monitorando Zoneamento Climático do Maranhão
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GRÃOS -->
+        <section id="graos" class="card">
+            <h2>🌾 Polo de Grãos do Maranhão</h2>
+            <div class="grain-content">
+                <div class="info-box">
+                    <h3>Soja e Milho</h3>
+                    <p>O Sul do Maranhão (destaque para o município de Balsas) faz parte da rica fronteira agrícola conhecida como MATOPIBA, sendo um gigante na produção de grãos voltados à exportação.</p>
+                </div>
+                <div class="info-box">
+                    <h3>Escoamento Logístico</h3>
+                    <p>A produção é escoada pelas rodovias federais e pela Ferrovia Norte-Sul em direção ao Porto do Itaqui, em São Luís, um dos portos mais estratégicos do Brasil.</p>
+                </div>
+                <div class="info-box">
+                    <h3>Impacto Climático</h3>
+                    <p>O regime regular de chuvas entre outubro e abril dita o ritmo do plantio e da colheita, exigindo monitoramento meteorológico constante dos produtores rurais.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- POVOS INDÍGENAS -->
+        <section id="indigenas" class="card">
+            <h2>🏹 Povos Indígenas</h2>
+            <p style="margin-bottom: 1rem;">O Maranhão possui uma rica e importante diversidade étnica e cultural indígena, abrigando povos tradicionais que lutam pela preservação de suas florestas e culturas:</p>
+            <div class="indigenous-grid">
+                <div class="tribe-card">
+                    <h3>Guajajara (Tenetehara)</h3>
+                    <p>Um dos povos mais populosos do estado, com forte atuação na demarcação e proteção de terras na Amazônia Legal.</p>
+                </div>
+                <div class="tribe-card">
+                    <h3>Kãnhãmã / Awa Guajá</h3>
+                    <p>Conhecidos por manterem o modo de vida tradicional de caçadores-coletores nas matas preservadas do bioma amazônico.</p>
+                </div>
+                <div class="tribe-card">
+                    <h3>Timbira (Krahô-Kanela)</h3>
+                    <p>Famosos por suas complexas cerimônias culturais, corridas de toras e forte ligação com os cerrados maranhenses.</p>
+                </div>
+                <div class="tribe-card">
+                    <h3>Gavião / Pykobjê</h3>
+                    <p>Habitam a região oeste do estado, com profundo conhecimento da biodiversidade e manejo sustentável.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- BIODIVERSIDADE, HISTÓRIA E CURIOSIDADES -->
+        <div class="grid-3">
+            <section id="biodiversidade" class="card">
+                <h2>🌿 Biodiversidade</h2>
+                <p>O Maranhão é uma zona de transição biológica única no Brasil. Ele reúne três grandes biomas: a <strong>Amazônia</strong> (ao oeste), o <strong>Cerrado</strong> (ao sul e centro) e a transição para a <strong>Caatinga</strong>, além de extensos manguezais na rica costa litorânea. Essa diversidade abriga espécies nativas endêmicas de flora e fauna.</p>
+            </section>
+
+            <section id="historia" class="card">
+                <h2>📜 História</h2>
+                <p>Fundada em 1612 por franceses (que tentaram criar a "França Equinocial") e posteriormente colonizada pelos portugueses, São Luís é a única capital brasileira fundada pela França. O estado passou por ciclos econômicos marcantes baseados no algodão, cana-de-açúcar, arroz e, mais recentemente, na expansão dos grãos.</p>
+            </section>
+
+            <section id="curiosidades" class="card">
+                <h2>✨ Curiosidades</h2>
+                <p>• O Maranhão abriga os deslumbrantes <strong>Lençóis Maranhenses</strong>, onde dunas de areia branca se misturam a lagoas cristalinas de água da chuva.<br>
+                • É o berço do <strong>Bumba Meu Boi</strong>, manifestação cultural rica reconhecida como Patrimônio Cultural Imaterial da Humanidade pela UNESCO.<br>
+                • Possui a maior concentração de manguezais contínuos do litoral brasileiro.</p>
+            </section>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Portal Temático do Maranhão. Desenvolvido para fins informativos e educacionais.</p>
+    </footer>
+
+    <script>
+        // Dados simulados para alterar o clima conforme a região do Maranhão
+        const dadosRegionais = {
+            sul: {
+                regiao: "Sul (Balsas - Polo de Grãos)",
+                clima: "Parcialmente Nublado com pancadas isoladas",
+                temp: "32°C",
+                umid: "65%"
+            },
+            norte: {
+                regiao: "Norte / Metropolitana (São Luís)",
+                clima: "Chuvoso com aberturas de sol",
+                temp: "28°C",
+                umid: "85%"
+            },
+            central: {
+                regiao: "Centro (Grajaú / Barra do Corda)",
+                clima: "Quente e Ensolarado",
+                temp: "34°C",
+                umid: "55%"
+            },
+            leste: {
+                regiao: "Leste (Caxias / Cocais)",
+                clima: "Estável com poucas nuvens",
+                temp: "33°C",
+                umid: "60%"
+            }
+        };
+
+        function mudarClima() {
+            const select = document.getElementById('regiaoSelect').value;
+            const info = dadosRegionais[select];
+
+            document.getElementById('cRegiao').innerText = info.regiao;
+            document.getElementById('cClima').innerText = info.clima;
+            document.getElementById('cTemp').innerText = info.temp;
+            document.getElementById('cUmid').innerText = info.umid;
+        }
+    </script>
+</body>
+</html>
